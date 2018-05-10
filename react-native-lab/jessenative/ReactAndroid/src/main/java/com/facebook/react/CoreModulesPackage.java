@@ -50,16 +50,16 @@ import javax.inject.Provider;
     UIManagerModule.class,
   }
 )
-/* package */ class CoreModulesPackage extends LazyReactPackage implements ReactPackageLogger {
+public class CoreModulesPackage extends LazyReactPackage implements ReactPackageLogger {
 
-  private final ReactInstanceManager mReactInstanceManager;
+  private final ReactInstanceManagerInterface mReactInstanceManager;
   private final DefaultHardwareBackBtnHandler mHardwareBackBtnHandler;
   private final UIImplementationProvider mUIImplementationProvider;
   private final boolean mLazyViewManagersEnabled;
   private final int mMinTimeLeftInFrameForNonBatchedOperationMs;
 
-  CoreModulesPackage(
-      ReactInstanceManager reactInstanceManager,
+  public CoreModulesPackage(
+          ReactInstanceManagerInterface reactInstanceManager,
       DefaultHardwareBackBtnHandler hardwareBackBtnHandler,
       UIImplementationProvider uiImplementationProvider,
       boolean lazyViewManagersEnabled,
@@ -90,14 +90,14 @@ import javax.inject.Provider;
                 return new DeviceEventManagerModule(reactContext, mHardwareBackBtnHandler);
               }
             }),
-        ModuleSpec.nativeModuleSpec(
+        /*ModuleSpec.nativeModuleSpec(
             ExceptionsManagerModule.class,
             new Provider<NativeModule>() {
               @Override
               public NativeModule get() {
                 return new ExceptionsManagerModule(mReactInstanceManager.getDevSupportManager());
               }
-            }),
+            }),*/
         ModuleSpec.nativeModuleSpec(
             HeadlessJsTaskSupportModule.class,
             new Provider<NativeModule>() {
@@ -119,7 +119,7 @@ import javax.inject.Provider;
             new Provider<NativeModule>() {
               @Override
               public NativeModule get() {
-                return new Timing(reactContext, mReactInstanceManager.getDevSupportManager());
+                return new Timing(reactContext, null);
               }
             }),
         ModuleSpec.nativeModuleSpec(

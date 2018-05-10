@@ -63,7 +63,7 @@ public class CompositeReactPackage extends ReactInstancePackage
   @Override
   public List<NativeModule> createNativeModules(
       ReactApplicationContext reactContext,
-      ReactInstanceManager reactInstanceManager) {
+      ReactInstanceManagerInterface reactInstanceManager) {
     final Map<String, NativeModule> moduleMap = new HashMap<>();
     for (ReactPackage reactPackage: mChildReactPackages) {
       List<NativeModule> nativeModules;

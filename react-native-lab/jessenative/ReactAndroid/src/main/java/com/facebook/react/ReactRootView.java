@@ -76,7 +76,7 @@ public class ReactRootView extends SizeMonitoringFrameLayout
     void onAttachedToReactInstance(ReactRootView rootView);
   }
 
-  private @Nullable ReactInstanceManager mReactInstanceManager;
+  private @Nullable ReactInstanceManagerInterface mReactInstanceManager;
   private @Nullable String mJSModuleName;
   private @Nullable Bundle mAppProperties;
   private @Nullable CustomGlobalLayoutListener mCustomGlobalLayoutListener;
@@ -320,7 +320,7 @@ public class ReactRootView extends SizeMonitoringFrameLayout
   /**
    * {@see #startReactApplication(ReactInstanceManager, String, android.os.Bundle)}
    */
-  public void startReactApplication(ReactInstanceManager reactInstanceManager, String moduleName) {
+  public void startReactApplication(ReactInstanceManagerInterface reactInstanceManager, String moduleName) {
     startReactApplication(reactInstanceManager, moduleName, null);
   }
 
@@ -331,7 +331,7 @@ public class ReactRootView extends SizeMonitoringFrameLayout
    * properties for the react component.
    */
   public void startReactApplication(
-      ReactInstanceManager reactInstanceManager,
+          ReactInstanceManagerInterface reactInstanceManager,
       String moduleName,
       @Nullable Bundle initialProperties) {
     Systrace.beginSection(TRACE_TAG_REACT_JAVA_BRIDGE, "startReactApplication");
@@ -577,7 +577,7 @@ public class ReactRootView extends SizeMonitoringFrameLayout
 
   @Nullable
   public ReactInstanceManager getReactInstanceManager() {
-    return mReactInstanceManager;
+    return null;
   }
   
   /* package */ void sendEvent(String eventName, @Nullable WritableMap params) {

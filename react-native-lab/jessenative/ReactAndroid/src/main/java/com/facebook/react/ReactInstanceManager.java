@@ -110,7 +110,7 @@ import javax.annotation.Nullable;
  * To instantiate an instance of this class use {@link #builder}.
  */
 @ThreadSafe
-public class ReactInstanceManager {
+public class ReactInstanceManager implements ReactInstanceManagerInterface {
 
   private static final String TAG = ReactInstanceManager.class.getSimpleName();
   /**

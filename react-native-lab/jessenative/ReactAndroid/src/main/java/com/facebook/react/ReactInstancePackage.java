@@ -23,7 +23,7 @@ public abstract class ReactInstancePackage implements ReactPackage {
 
   public abstract List<NativeModule> createNativeModules(
       ReactApplicationContext reactContext,
-      ReactInstanceManager reactInstanceManager);
+      ReactInstanceManagerInterface reactInstanceManager);
 
   @Override
   public List<NativeModule> createNativeModules(ReactApplicationContext reactContext) {

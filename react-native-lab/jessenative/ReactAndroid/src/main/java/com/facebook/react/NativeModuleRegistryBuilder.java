@@ -26,7 +26,7 @@ import com.facebook.react.module.model.ReactModuleInfo;
 public class NativeModuleRegistryBuilder {
 
   private final ReactApplicationContext mReactApplicationContext;
-  private final ReactInstanceManager mReactInstanceManager;
+  private final ReactInstanceManagerInterface mReactInstanceManager;
   private final boolean mLazyNativeModulesEnabled;
 
   private final Map<Class<? extends NativeModule>, ModuleHolder> mModules = new HashMap<>();
@@ -34,7 +34,7 @@ public class NativeModuleRegistryBuilder {
 
   public NativeModuleRegistryBuilder(
     ReactApplicationContext reactApplicationContext,
-    ReactInstanceManager reactInstanceManager,
+    ReactInstanceManagerInterface reactInstanceManager,
     boolean lazyNativeModulesEnabled) {
     mReactApplicationContext = reactApplicationContext;
     mReactInstanceManager = reactInstanceManager;

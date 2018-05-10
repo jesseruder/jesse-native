@@ -332,7 +332,7 @@ public final class Timing extends ReactContextBaseJavaModule implements Lifecycl
     // If the times on the server and device have drifted throw an exception to warn the developer
     // that things might not work or results may not be accurate. This is required only for
     // developer builds.
-    if (mDevSupportManager.getDevSupportEnabled()) {
+    /*if (mDevSupportManager.getDevSupportEnabled()) {
       long driftTime = Math.abs(remoteTime - deviceTime);
       if (driftTime > 60000) {
         getReactApplicationContext().getJSModule(JSTimers.class)
@@ -340,7 +340,7 @@ public final class Timing extends ReactContextBaseJavaModule implements Lifecycl
             "Debugger and device times have drifted by more than 60s. Please correct this by " +
             "running adb shell \"date `date +%m%d%H%M%Y.%S`\" on your debugger machine.");
       }
-    }
+    }*/
 
     // Adjust for the amount of time it took for native to receive the timer registration call
     long adjustedDuration = Math.max(0, remoteTime - deviceTime + duration);
