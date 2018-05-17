@@ -3,6 +3,7 @@ package com.jessenative.js;
 import android.content.Context;
 import android.util.Log;
 
+import com.facebook.react.DuktapeRN;
 import com.facebook.react.bridge.Arguments;
 import com.facebook.react.bridge.WritableArray;
 import com.facebook.react.uimanager.UIManagerModule;
@@ -21,6 +22,7 @@ public class JSRunner {
 
     interface JSInterface {
         void createView(int tag, String className, String props);
+        void updateView(int tag, String className, String props);
         void setChildren(int viewTag, String childrenTags);
         void onBatchComplete();
     }
@@ -52,6 +54,11 @@ public class JSRunner {
             }
 
             @Override
+            public void updateView(int tag, String className, String props) {
+                mUIManagerModule.updateView(tag, className, JSONBundleConverter.JSONStringToReadableMap(props));
+            }
+
+            @Override
             public void setChildren(int viewTag, String childrenTags) {
                 try {
                     WritableArray writableArray = Arguments.createArray();
@@ -71,6 +78,13 @@ public class JSRunner {
                 mUIManagerModule.onBatchComplete();
             }
         });
+
+        DuktapeRN.executor = new DuktapeRN.DuktapeRNExecutor() {
+            @Override
+            public void execute(String js) {
+                mDuktape.evaluate(js);
+            }
+        };
     }
 
     public void run() {

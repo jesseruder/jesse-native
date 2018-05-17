@@ -51,6 +51,12 @@ public class ReactViewManager extends ViewGroupManager<ReactViewGroup> {
   private static final int CMD_HOTSPOT_UPDATE = 1;
   private static final int CMD_SET_PRESSED = 2;
 
+
+  @ReactProp(name = "jesseGesture")
+  public void setJesseGesture(ReactViewGroup view, String js) {
+    view.setJesseGesture(js);
+  }
+
   @ReactProp(name = "accessible")
   public void setAccessible(ReactViewGroup view, boolean accessible) {
     view.setFocusable(accessible);

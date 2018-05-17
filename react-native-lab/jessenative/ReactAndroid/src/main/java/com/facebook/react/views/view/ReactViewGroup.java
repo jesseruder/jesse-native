@@ -21,6 +21,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import com.facebook.infer.annotation.Assertions;
+import com.facebook.react.DuktapeRN;
 import com.facebook.react.common.annotations.VisibleForTesting;
 import com.facebook.react.modules.i18nmanager.I18nUtil;
 import com.facebook.react.touch.OnInterceptTouchEventListener;
@@ -109,6 +110,12 @@ public class ReactViewGroup extends ViewGroup implements
   private @Nullable Path mPath;
   private int mLayoutDirection;
 
+  private String mJesseGesture = null;
+
+  public void setJesseGesture(String js) {
+    mJesseGesture = js;
+  }
+
   public ReactViewGroup(Context context) {
     super(context);
     mDrawingOrderHelper = new ViewGroupDrawingOrderHelper(this);
@@ -180,7 +187,18 @@ public class ReactViewGroup extends ViewGroup implements
 
   @Override
   public boolean onInterceptTouchEvent(MotionEvent ev) {
-    if (mOnInterceptTouchEventListener != null &&
+    if (mJesseGesture == null) {
+      return false;
+    }
+
+    float x = ev.getX();
+    float y = ev.getY();
+
+    DuktapeRN.executor.execute(mJesseGesture + "({x:" + x + ",y:" + y + "});");
+
+    return true;
+
+    /*if (mOnInterceptTouchEventListener != null &&
         mOnInterceptTouchEventListener.onInterceptTouchEvent(this, ev)) {
       return true;
     }
@@ -188,12 +206,13 @@ public class ReactViewGroup extends ViewGroup implements
     if (mPointerEvents == PointerEvents.NONE || mPointerEvents == PointerEvents.BOX_ONLY) {
       return true;
     }
-    return super.onInterceptTouchEvent(ev);
+
+    return super.onInterceptTouchEvent(ev);*/
   }
 
   @Override
   public boolean onTouchEvent(MotionEvent ev) {
-    // We do not accept the touch event if this view is not supposed to receive it.
+    /*// We do not accept the touch event if this view is not supposed to receive it.
     if (mPointerEvents == PointerEvents.NONE || mPointerEvents == PointerEvents.BOX_NONE) {
       return false;
     }
@@ -201,7 +220,17 @@ public class ReactViewGroup extends ViewGroup implements
     // and sends the event to JS as such.
     // We don't need to do bubbling in native (it's already happening in JS).
     // For an explanation of bubbling and capturing, see
-    // http://javascript.info/tutorial/bubbling-and-capturing#capturing
+    // http://javascript.info/tutorial/bubbling-and-capturing#capturing*/
+
+    if (mJesseGesture != null) {
+      float x = ev.getX();
+      float y = ev.getY();
+
+      DuktapeRN.executor.execute(mJesseGesture + "({x:" + x + ",y:" + y + "});");
+    }
+
+
+
     return true;
   }
 
