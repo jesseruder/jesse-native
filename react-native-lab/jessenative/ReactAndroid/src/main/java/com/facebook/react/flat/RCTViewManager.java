@@ -137,4 +137,9 @@ public final class RCTViewManager extends FlatViewManager {
       ));
     }
   }
+
+  @ReactProp(name = "jesseGesture")
+  public void setJesseGesture(FlatViewGroup view, String js) {
+    //view.add
+  }
 }

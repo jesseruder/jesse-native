@@ -41,6 +41,7 @@ import com.facebook.react.uimanager.UIManagerModule;
 import com.facebook.react.uimanager.ViewManager;
 import com.facebook.systrace.Systrace;
 import com.facebook.systrace.SystraceMessage;
+import com.jessenative.js.JSRunner;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -180,7 +181,9 @@ public class JesseReactActivityDelegate implements ReactInstanceManagerInterface
         mReactRootView.setBackgroundColor(Color.parseColor("#ff0000"));
         mReactRootView.startReactApplication(this, "ModuleName");
 
-        {
+        JSRunner.getInstance(getContext(), uiManagerModule).run();
+
+        /*{
             WritableMap m = Arguments.createMap();
             m.putString("text", "Welcome!");
             uiManagerModule.createView(2, "RCTRawText", 1, m);
@@ -225,7 +228,7 @@ public class JesseReactActivityDelegate implements ReactInstanceManagerInterface
             uiManagerModule.setChildren(1, a);
         }
 
-        uiManagerModule.onBatchComplete();
+        uiManagerModule.onBatchComplete();*/
     }
 
 
