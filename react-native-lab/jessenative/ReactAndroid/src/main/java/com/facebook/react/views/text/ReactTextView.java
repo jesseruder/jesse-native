@@ -16,6 +16,8 @@ import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
+import com.facebook.react.DuktapeRN;
 import com.facebook.react.uimanager.ReactCompoundView;
 import com.facebook.react.uimanager.ViewDefaults;
 import com.facebook.react.views.view.ReactViewBackgroundManager;
@@ -36,6 +38,11 @@ public class ReactTextView extends TextView implements ReactCompoundView {
   private TextUtils.TruncateAt mEllipsizeLocation = TextUtils.TruncateAt.END;
 
   private ReactViewBackgroundManager mReactBackgroundManager;
+
+
+  public void setJesseTag(int tag) {
+    DuktapeRN.executor.registerView(tag, this);
+  }
 
   public ReactTextView(Context context) {
     super(context);

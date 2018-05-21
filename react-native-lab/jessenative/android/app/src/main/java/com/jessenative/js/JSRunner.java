@@ -2,6 +2,7 @@ package com.jessenative.js;
 
 import android.content.Context;
 import android.util.Log;
+import android.view.View;
 
 import com.facebook.react.DuktapeRN;
 import com.facebook.react.bridge.Arguments;
@@ -17,10 +18,13 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
+import java.util.HashMap;
+import java.util.Map;
 
 public class JSRunner {
 
     interface JSInterface {
+        void moveViewImmediate(int tag, double x, double y);
         void createView(int tag, String className, String props);
         void updateView(int tag, String className, String props);
         void setChildren(int viewTag, String childrenTags);
@@ -28,6 +32,7 @@ public class JSRunner {
     }
 
     private static JSRunner sInstance;
+    private Map<Integer, View> mTagToView = new HashMap<>();
 
     public static JSRunner getInstance(Context context, UIManagerModule module) {
         if (sInstance == null) {
@@ -47,6 +52,13 @@ public class JSRunner {
         mUIManagerModule = module;
 
         mDuktape.set("UI", JSInterface.class, new JSInterface() {
+
+            @Override
+            public void moveViewImmediate(int tag, double x, double y) {
+                View view = mTagToView.get(tag);
+                view.setX((float) x);
+                view.setY((float) y);
+            }
 
             @Override
             public void createView(int tag, String className, String props) {
@@ -83,6 +95,11 @@ public class JSRunner {
             @Override
             public void execute(String js) {
                 mDuktape.evaluate(js);
+            }
+
+            @Override
+            public void registerView(int tag, View view) {
+                mTagToView.put(tag, view);
             }
         };
     }

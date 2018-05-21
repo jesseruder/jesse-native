@@ -57,6 +57,11 @@ public class ReactViewManager extends ViewGroupManager<ReactViewGroup> {
     view.setJesseGesture(js);
   }
 
+    @ReactProp(name = "jesseTag")
+    public void setJesseTag(ReactViewGroup view, int tag) {
+        view.setJesseTag(tag);
+    }
+
   @ReactProp(name = "accessible")
   public void setAccessible(ReactViewGroup view, boolean accessible) {
     view.setFocusable(accessible);

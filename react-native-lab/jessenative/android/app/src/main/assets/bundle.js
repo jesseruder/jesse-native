@@ -1,6 +1,7 @@
 var currentTag = 2; // rootview has tag 1
 function createView(type, args) {
     var tag = currentTag++;
+    args.jesseTag = tag;
     UI.createView(tag, type, JSON.stringify(args));
     return {
         tag: tag,
@@ -12,6 +13,7 @@ function createView(type, args) {
             UI.setChildren(1, JSON.stringify([tag]));
         },
         update: function(args) {
+            args.jesseTag = tag;
             UI.updateView(tag, type, JSON.stringify(args))
         }
     };
@@ -25,10 +27,13 @@ var text = createView("RCTText", {
     allowFontScaling: true,
     ellipsizeMode: 'tail',
     accessible: true,
-    margin: 10,
-    textAlign: 'center',
+    //margin: 10,
+    //textAlign: 'center',
     fontSize: 20,
-    color: -13421773
+    color: -13421773,
+    position: 'absolute',
+    top: 0,
+    left: 0
 });
 
 text.setChildren([rawText.tag]);
@@ -47,8 +52,18 @@ container.setAsRootView();
 UI.onBatchComplete();
 
 function hello(position) {
-    rawText.update({
-        text: JSON.stringify(position)
+    /*text.update({
+        allowFontScaling: true,
+        ellipsizeMode: 'tail',
+        accessible: true,
+        //margin: 10,
+        //textAlign: 'center',
+        fontSize: 20,
+        color: -13421773,
+        position: 'absolute',
+        top: position.y / 3,
+        left: position.x / 3
     });
-    UI.onBatchComplete();
+    UI.onBatchComplete();*/
+    UI.moveViewImmediate(text.tag, position.x, position.y);
 }

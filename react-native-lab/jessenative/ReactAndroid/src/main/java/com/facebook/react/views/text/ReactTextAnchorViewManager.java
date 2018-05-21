@@ -38,6 +38,13 @@ public abstract class ReactTextAnchorViewManager<T extends View, C extends React
     Spacing.ALL, Spacing.LEFT, Spacing.RIGHT, Spacing.TOP, Spacing.BOTTOM,
   };
 
+
+  @ReactProp(name = "jesseTag")
+  public void setJesseTag(ReactTextView view, int tag) {
+    view.setJesseTag(tag);
+  }
+
+
   // maxLines can only be set in master view (block), doesn't really make sense to set in a span
   @ReactProp(name = ViewProps.NUMBER_OF_LINES, defaultInt = ViewDefaults.NUMBER_OF_LINES)
   public void setNumberOfLines(ReactTextView view, int numberOfLines) {

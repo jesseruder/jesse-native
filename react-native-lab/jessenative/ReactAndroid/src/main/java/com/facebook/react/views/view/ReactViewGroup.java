@@ -116,6 +116,10 @@ public class ReactViewGroup extends ViewGroup implements
     mJesseGesture = js;
   }
 
+  public void setJesseTag(int tag) {
+    DuktapeRN.executor.registerView(tag, this);
+  }
+
   public ReactViewGroup(Context context) {
     super(context);
     mDrawingOrderHelper = new ViewGroupDrawingOrderHelper(this);
