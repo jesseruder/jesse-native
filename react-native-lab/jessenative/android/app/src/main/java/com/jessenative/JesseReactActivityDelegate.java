@@ -11,6 +11,8 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.view.KeyEvent;
+import android.view.ViewGroup;
+import android.widget.LinearLayout;
 
 import com.facebook.infer.annotation.Assertions;
 import com.facebook.react.CoreModulesPackage;
@@ -101,16 +103,16 @@ public class JesseReactActivityDelegate implements ReactInstanceManagerInterface
         return getReactNativeHost().getReactInstanceManager();
     }
 
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState, LinearLayout layout) {
         if (mMainComponentName != null) {
-            loadApp(mMainComponentName);
+            loadApp(mMainComponentName, layout);
         }
         mDoubleTapReloadRecognizer = new DoubleTapReloadRecognizer();
     }
 
     ReactContext mReactContext;
 
-    protected void loadApp(String appKey) {
+    protected void loadApp(String appKey, LinearLayout layout) {
         if (mReactRootView != null) {
             throw new IllegalStateException("Cannot loadApp while app is already running.");
         }
@@ -176,8 +178,8 @@ public class JesseReactActivityDelegate implements ReactInstanceManagerInterface
         uiManagerModule.addRootView(mReactRootView);
 
 
-
-        getPlainActivity().setContentView(mReactRootView);
+        mReactRootView.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT, 1.0f));
+        layout.addView(mReactRootView);
         mReactRootView.setBackgroundColor(Color.parseColor("#ff0000"));
         mReactRootView.startReactApplication(this, "ModuleName");
 

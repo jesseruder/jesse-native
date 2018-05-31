@@ -13,6 +13,9 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.KeyEvent;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.LinearLayout;
 
 import com.facebook.react.ReactActivityDelegate;
 import com.facebook.react.ReactInstanceManager;
@@ -20,6 +23,7 @@ import com.facebook.react.ReactNativeHost;
 import com.facebook.react.modules.core.DefaultHardwareBackBtnHandler;
 import com.facebook.react.modules.core.PermissionAwareActivity;
 import com.facebook.react.modules.core.PermissionListener;
+import com.jessenative.nativecomparison.Drag;
 
 /**
  * Base Activity for React Native applications.
@@ -52,7 +56,17 @@ public abstract class JesseReactActivity extends Activity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mDelegate.onCreate(savedInstanceState);
+
+        LinearLayout layout = new LinearLayout(this);
+        layout.setOrientation(LinearLayout.VERTICAL);
+
+        mDelegate.onCreate(savedInstanceState, layout);
+
+        View view = new Drag(this);
+        view.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT, 1.0f));
+        layout.addView(view);
+
+        setContentView(layout);
     }
 
     @Override
@@ -136,7 +150,7 @@ public abstract class JesseReactActivity extends Activity
         return mDelegate.getReactInstanceManager();
     }
 
-    protected final void loadApp(String appKey) {
+    /*protected final void loadApp(String appKey) {
         mDelegate.loadApp(appKey);
-    }
+    }*/
 }
